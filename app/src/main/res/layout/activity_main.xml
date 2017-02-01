@@ -36,6 +36,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Cookies Per Second: "
+        android:id="@+id/textView_cps"
+        android:layout_below="@+id/textView_cookiedisp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/locTapped"
         android:layout_alignParentStart="true" />
 
@@ -50,5 +59,405 @@
         android:textSize="36dp"
         android:textStyle="bold"
         android:typeface="serif" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#40ffffff">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_clicker"
+                    android:src="@drawable/clicker"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Cursor"
+                    android:id="@+id/textView_clickerlbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="x0"
+                    android:id="@+id/textView_clicker"
+                    android:layout_gravity="right|top"
+                    android:typeface="serif" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_grandma"
+                    android:src="@drawable/grandma"
+                    android:padding="10dp" />
+
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Grandma"
+                android:id="@+id/textView_grandmalbl"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginTop="60dp"
+                android:typeface="serif"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="x0"
+                    android:id="@+id/textView_grandma"
+                    android:layout_gravity="right|top"
+                    android:typeface="serif" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_farm"
+                    android:src="@drawable/farm"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Farm"
+                    android:id="@+id/textView_farmlbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="x0"
+                    android:id="@+id/textView_farm"
+                    android:layout_gravity="right|top"
+                    android:typeface="serif" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_mine"
+                    android:src="@drawable/mine"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Mine"
+                    android:id="@+id/textView_minelbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="x0"
+                    android:id="@+id/textView_mine"
+                    android:layout_gravity="right|top"
+                    android:typeface="serif" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_factory"
+                    android:src="@drawable/factory"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Factory"
+                    android:id="@+id/textView_factorylbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="x0"
+                    android:id="@+id/textView_factory"
+                    android:layout_gravity="right|top"
+                    android:typeface="serif" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_transport"
+                    android:src="@drawable/transport"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Transport"
+                    android:id="@+id/textView_transportlbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="x0"
+                    android:id="@+id/textView_transport"
+                    android:layout_gravity="right|top"
+                    android:typeface="serif" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_vertical"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_alchemy"
+                    android:src="@drawable/alchemy"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Alchemy"
+                    android:id="@+id/textView_alchemylbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="x0"
+                    android:id="@+id/textView_alchemy"
+                    android:layout_gravity="right|top"
+                    android:typeface="serif" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_vertical"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_portal"
+                    android:src="@drawable/blackhole"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Portal"
+                    android:id="@+id/textView_portallbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="x0"
+                    android:id="@+id/textView_portal"
+                    android:layout_gravity="right|top"
+                    android:typeface="serif" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_vertical"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_timemachine"
+                    android:src="@drawable/timemachine"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Time\nMachine"
+                    android:id="@+id/textView_timemachinelbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="x0"
+                    android:id="@+id/textView_timemachine"
+                    android:layout_gravity="right|top"
+                    android:typeface="serif" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_vertical"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_cursorboost"
+                    android:src="@drawable/boost0"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Speed\nClick"
+                    android:id="@+id/textView_cursorboostlbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp"
+                    android:textAlignment="center" />
+
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_vertical"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_sugarrush"
+                    android:src="@drawable/sugarrush"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Sugar\nRush"
+                    android:id="@+id/textView_sugarrushlbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp" />
+
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_vertical"
+                android:layout_weight=".2">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton_potion"
+                    android:src="@drawable/potion"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Potion"
+                    android:id="@+id/textView_potionlbl"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginTop="60dp"
+                    android:typeface="serif"
+                    android:textSize="14dp" />
+
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
