@@ -37,10 +37,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Cookies Per Second: "
+        android:text="per second: 0 "
         android:id="@+id/textView_cps"
         android:layout_below="@+id/textView_cookiedisp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:typeface="serif"
+        android:textStyle="normal|bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,7 +87,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_clicker"
                     android:src="@drawable/clicker"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -118,7 +121,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_grandma"
                     android:src="@drawable/grandma"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                 android:layout_width="wrap_content"
@@ -151,7 +155,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_farm"
                     android:src="@drawable/farm"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -184,7 +189,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_mine"
                     android:src="@drawable/mine"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -217,7 +223,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_factory"
                     android:src="@drawable/factory"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -250,7 +257,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_transport"
                     android:src="@drawable/transport"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -292,7 +300,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_alchemy"
                     android:src="@drawable/alchemy"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -325,7 +334,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_portal"
                     android:src="@drawable/blackhole"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -358,7 +368,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_timemachine"
                     android:src="@drawable/timemachine"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -392,7 +403,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_cursorboost"
                     android:src="@drawable/boost0"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -418,7 +430,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_sugarrush"
                     android:src="@drawable/sugarrush"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -443,7 +456,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButton_potion"
                     android:src="@drawable/potion"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:onClick="buttonClicked" />
 
                 <TextView
                     android:layout_width="wrap_content"
