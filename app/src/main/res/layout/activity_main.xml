@@ -23,16 +23,6 @@
         android:layout_margin="0dp"
         android:padding="0dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView_cookie"
-        android:src="@drawable/cookie"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="99dp"
-        android:onClick="cookieClicked" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -473,5 +463,15 @@
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView_cookie"
+        android:src="@drawable/cookie"
+        android:layout_marginTop="44dp"
+        android:onClick="cookieClicked"
+        android:layout_below="@+id/textView_cps"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

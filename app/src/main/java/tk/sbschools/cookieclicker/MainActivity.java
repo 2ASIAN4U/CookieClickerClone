@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
@@ -249,6 +250,7 @@ public class MainActivity extends Activity {
             }
         }
     }
+
     public void buttonClicked(View v){
         if(v.equals(cursorBTN)){
             if(cursorNum >= 1) {
@@ -261,6 +263,19 @@ public class MainActivity extends Activity {
             }
             cursorCount.setText("x"+cursorNum);
             cookiesPerSecond += 0.1;
+            ImageView cursorImg = new ImageView(MainActivity.this);
+            cursorImg.setImageResource(R.drawable.clicker);
+            cursorImg.setX(cookie.getX()+cookie.getWidth()/2-60);
+            cursorImg.setY(cookie.getY()-100);
+
+            background.addView(cursorImg);
+
+            cursorImg.animate().rotation(180).start();
+            RotateAnimation rotateAnimation = new RotateAnimation(360, 0, RotateAnimation.ABSOLUTE, (cookie.getX()+cookie.getWidth()/2), RotateAnimation.ABSOLUTE, (cookie.getY()+cookie.getHeight()/2));
+            rotateAnimation.setDuration(36000);
+            rotateAnimation.setInterpolator(new LinearInterpolator());
+            rotateAnimation.setRepeatCount(RotateAnimation.INFINITE);
+            cursorImg.startAnimation(rotateAnimation);
         }
         if(v.equals(grandmaBTN)){
             if(grandmaNum >= 1) {
