@@ -1,6 +1,8 @@
 package tk.sbschools.cookieclicker;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -32,13 +34,19 @@ public class MainActivity extends Activity {
     static double cookieCount;
     static double cookiesPerSecond;
     TextView locationTapped;
-    static TextView cookieDisp, cpsDisp;
+    static TextView cookieDisp, cpsDisp, cSpawner0, cSpawner1;
     TranslateAnimation floatUp;
     ScaleAnimation scaleAnimation;
     static ImageButton cursorBTN, grandmaBTN, farmBTN, mineBTN, factoryBTN, transportBTN, alchemyBTN, portalBTN,
             timeMachineBTN, boost0, boost1, boost2;
-    static TextView cursorCount, grandmaCount, farmCount, mineCount, factoryCount, transportCount, alchemyCount, portalCount,timeMachineCount;
+    static TextView cursorCount, grandmaCount, farmCount, mineCount, factoryCount, transportCount, alchemyCount, portalCount,timeMachineCount, clickBoostlbl, cookieBoostlbl, potionBoostlbl;
     static int cursorNum, grandmaNum, farmNum, mineNum, factoryNum, transportNum, alchemyNum, portalNum, timeMachineNum;
+    static boolean clickBoost;
+    static boolean cookieBoost;
+    static boolean potionBoost;
+
+    SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +54,15 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
 
+        prefs = this.getPreferences(Context.MODE_PRIVATE);
+        editor = prefs.edit();
+
         scaleAnimation = new ScaleAnimation(1.15f,1.0f,1.15f,1.0f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
         scaleAnimation.setDuration(100);
 
-        if(savedInstanceState != null) {
-            cookieCount = savedInstanceState.getDouble("savedCookies");
-            cookiesPerSecond = savedInstanceState.getDouble("savedCPS");
+        if(getDouble(prefs,"cookieCount",0.0) != 0.0) {
+            cookieCount = getDouble(prefs,"cookieCount",0.0);
+            cookiesPerSecond = getDouble(prefs,"cpsCount",0.0);
         }else {
             cookieCount = 0;
             cookiesPerSecond = 0;
@@ -59,6 +70,8 @@ public class MainActivity extends Activity {
         locationTapped = (TextView) findViewById(R.id.locTapped);
         cookieDisp = (TextView) findViewById(R.id.textView_cookiedisp);
         cpsDisp = (TextView) findViewById(R.id.textView_cps);
+        cSpawner0 = (TextView) findViewById(R.id.CookieSpawner0);
+        cSpawner1 = (TextView) findViewById(R.id.CookieSpawner1);
 
         cookie = (ImageView)findViewById(R.id.imageView_cookie);
         bgcshower = (ImageView)findViewById(R.id.imageView_cookieShower);
@@ -116,9 +129,9 @@ public class MainActivity extends Activity {
         alchemyBTN = (ImageButton)findViewById(R.id.imageButton_alchemy); alchemyBTN.setEnabled(false);
         portalBTN = (ImageButton)findViewById(R.id.imageButton_portal); portalBTN.setEnabled(false);
         timeMachineBTN = (ImageButton)findViewById(R.id.imageButton_timemachine); timeMachineBTN.setEnabled(false);
-        boost0 = (ImageButton)findViewById(R.id.imageButton_cursorboost); boost0.setEnabled(false);
-        boost1 = (ImageButton)findViewById(R.id.imageButton_sugarrush); boost1.setEnabled(false);
-        boost2 = (ImageButton)findViewById(R.id.imageButton_potion); boost2.setEnabled(false);
+        boost0 = (ImageButton)findViewById(R.id.imageButton_cursorboost); boost0.setEnabled(false);boost0.setVisibility(View.INVISIBLE);
+        boost1 = (ImageButton)findViewById(R.id.imageButton_sugarrush); boost1.setEnabled(false);boost1.setVisibility(View.INVISIBLE);
+        boost2 = (ImageButton)findViewById(R.id.imageButton_potion); boost2.setEnabled(false);boost2.setVisibility(View.INVISIBLE);
 
         cursorCount = (TextView)findViewById(R.id.textView_clicker);
         grandmaCount = (TextView)findViewById(R.id.textView_grandma);
@@ -129,11 +142,18 @@ public class MainActivity extends Activity {
         alchemyCount = (TextView)findViewById(R.id.textView_alchemy);
         portalCount = (TextView)findViewById(R.id.textView_portal);
         timeMachineCount = (TextView)findViewById(R.id.textView_timemachine);
+        clickBoostlbl = (TextView)findViewById(R.id.textView_cursorboostlbl); clickBoostlbl.setVisibility(View.INVISIBLE);
+        cookieBoostlbl = (TextView)findViewById(R.id.textView_sugarrushlbl); cookieBoostlbl.setVisibility(View.INVISIBLE);
+        potionBoostlbl = (TextView)findViewById(R.id.textView_potionlbl); potionBoostlbl.setVisibility(View.INVISIBLE);
 
         cursorNum = 0;grandmaNum = 0;farmNum = 0;mineNum = 0;factoryNum = 0;transportNum = 0;alchemyNum = 0;portalNum = 0;timeMachineNum = 0;
 
+        clickBoost = false;
+        cookieBoost = false;
+        potionBoost = false;
 
         new backgroundCPS().start();
+        new passiveSave().start();
 
         cookie.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -147,10 +167,40 @@ public class MainActivity extends Activity {
         });
     }
 
-    public static synchronized void addCookies(double c){
+    public class backgroundParticles extends Thread {
+        double c;
+        public backgroundParticles(double c){
+            this.c = c;
+        }
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (Math.random() > 0.5) {
+
+                        new ParticleSystem(MainActivity.this, 80, R.drawable.backgroundcookie, 10000, R.id.background)
+                                .setSpeedModuleAndAngleRange(0.05f, 0.2f, 180, 180)
+                                .setRotationSpeed(144)
+                                .setAcceleration(0.00005f, 90)
+                                .oneShot(cSpawner1, 1);
+                    } else {
+                        new ParticleSystem(MainActivity.this, 80, R.drawable.backgroundcookie, 10000, R.id.background)
+                                .setSpeedModuleAndAngleRange(0.05f, 0.2f, 0, 0)
+                                .setRotationSpeed(144)
+                                .setAcceleration(0.00005f, 90)
+                                .oneShot(cSpawner0, 1);
+                    }
+                }
+            });
+        }
+    }
+
+    public static synchronized void addCookies(final double c){
         cookieCount += c;
         System.out.print(cookieCount);
         cookieDisp.setText((int)cookieCount + " cookies");
+
         if(cookieCount>=(Math.pow(1.15,cursorNum) * 15))
             cursorBTN.setEnabled(true);
         else
@@ -187,6 +237,31 @@ public class MainActivity extends Activity {
             timeMachineBTN.setEnabled(true);
         else
             timeMachineBTN.setEnabled(false);
+        if(cookieCount>=200 && !clickBoost && boost0.getVisibility() == View.INVISIBLE){
+            ScaleAnimation popAnimation = new ScaleAnimation(0f,1.1f,0f,1.1f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            popAnimation.setDuration(100);
+            boost0.setVisibility(View.VISIBLE);
+            clickBoostlbl.setVisibility(View.VISIBLE);
+            boost0.setEnabled(true);
+            boost0.startAnimation(popAnimation);
+        }
+        if(cookieCount>=4000 && !cookieBoost && boost1.getVisibility() == View.INVISIBLE){
+            ScaleAnimation popAnimation = new ScaleAnimation(0f,1.1f,0f,1.1f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            popAnimation.setDuration(100);
+            boost1.setVisibility(View.VISIBLE);
+            cookieBoostlbl.setVisibility(View.VISIBLE);
+            boost1.setEnabled(true);
+            boost1.startAnimation(popAnimation);
+        }
+        if(cookieCount>=80000 && !potionBoost && boost2.getVisibility() == View.INVISIBLE){
+            ScaleAnimation popAnimation = new ScaleAnimation(0f,1.1f,0f,1.1f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            popAnimation.setDuration(100);
+            boost1.setVisibility(View.VISIBLE);
+            potionBoostlbl.setVisibility(View.VISIBLE);
+            boost1.setEnabled(true);
+            boost1.startAnimation(popAnimation);
+        }
+
 
     }
 
@@ -194,9 +269,25 @@ public class MainActivity extends Activity {
         floatUp = new TranslateAnimation(Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,1.0f,Animation.RELATIVE_TO_SELF,(float)(-3f + (Math.random()*2-1)));
         floatUp.setDuration(500);
         cookie.startAnimation(scaleAnimation);
-        addCookies(1);
+
+        double cookiesToAdd = 1;
+        if(clickBoost){
+            cookiesToAdd += cookiesPerSecond/8;
+        }
+        if(cookieBoost){
+            cookiesToAdd += cookiesPerSecond/8;
+        }
+        if(potionBoost){
+            cookiesToAdd += cookiesPerSecond/8;
+        }
+        addCookies(cookiesToAdd);
+        new backgroundParticles(cookiesToAdd).start();
         final TextView plusOne = new TextView(MainActivity.this);
-        plusOne.setText("+1");
+        DecimalFormat df = new DecimalFormat("#.0");
+        plusOne.setText("+" + cookiesToAdd);
+        if(cookiesToAdd >= 1.1){
+            plusOne.setText("+" + df.format(cookiesToAdd));
+        }
         plusOne.setTextColor(Color.WHITE);
         plusOne.setX(locationTapped.getX()-50);
         plusOne.setY(locationTapped.getY()-50);
@@ -224,6 +315,7 @@ public class MainActivity extends Activity {
             @Override
             public void onAnimationRepeat(Animation animation) {            }
         });
+        //From the Leonids Framework
         new ParticleSystem(this, 1, R.drawable.minicookie , 1000)
                 .setSpeedModuleAndAngleRange(0.1f, 0.2f,250,290)
                 .setRotationSpeed(144)
@@ -251,6 +343,29 @@ public class MainActivity extends Activity {
         }
     }
 
+    SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
+        return edit.putLong(key, Double.doubleToRawLongBits(value));
+    }
+
+    double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
+        return Double.longBitsToDouble(prefs.getLong(key, Double.doubleToLongBits(defaultValue)));
+    }
+
+    public class passiveSave extends Thread{
+        @Override
+        public void run() {
+            while(true) {
+                putDouble(editor,"cookieCount",cookieCount);
+                putDouble(editor,"cpsCount",cookiesPerSecond);
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void buttonClicked(View v){
         if(v.equals(cursorBTN)){
             if(cursorNum >= 1) {
@@ -262,6 +377,7 @@ public class MainActivity extends Activity {
                 cursorNum++;
             }
             cursorCount.setText("x"+cursorNum);
+            cursorCount.startAnimation(scaleAnimation);
             cookiesPerSecond += 0.1;
             ImageView cursorImg = new ImageView(MainActivity.this);
             cursorImg.setImageResource(R.drawable.clicker);
@@ -286,6 +402,7 @@ public class MainActivity extends Activity {
                 grandmaNum++;
             }
             grandmaCount.setText("x"+grandmaNum);
+            grandmaCount.startAnimation(scaleAnimation);
             cookiesPerSecond += 1;
         }
         if(v.equals(farmBTN)){
@@ -297,6 +414,7 @@ public class MainActivity extends Activity {
                 farmNum++;
             }
             farmCount.setText("x"+farmNum);
+            farmCount.startAnimation(scaleAnimation);
             cookiesPerSecond += 8;
         }
         if(v.equals(mineBTN)){
@@ -308,6 +426,7 @@ public class MainActivity extends Activity {
                 mineNum++;
             }
             mineCount.setText("x"+mineNum);
+            mineCount.startAnimation(scaleAnimation);
             cookiesPerSecond += 47;
         }
         if(v.equals(factoryBTN)){
@@ -319,6 +438,7 @@ public class MainActivity extends Activity {
                 factoryNum++;
             }
             factoryCount.setText("x"+factoryNum);
+            factoryCount.setAnimation(scaleAnimation);
             cookiesPerSecond += 260;
         }
         if(v.equals(transportBTN)){
@@ -330,6 +450,7 @@ public class MainActivity extends Activity {
                 transportNum++;
             }
             transportCount.setText("x"+transportNum);
+            transportCount.startAnimation(scaleAnimation);
             cookiesPerSecond += 1400;
         }
         if(v.equals(alchemyBTN)){
@@ -341,6 +462,7 @@ public class MainActivity extends Activity {
                 alchemyNum++;
             }
             alchemyCount.setText("x"+alchemyNum);
+            alchemyCount.startAnimation(scaleAnimation);
             cookiesPerSecond += 7800;
         }
         if(v.equals(portalBTN)){
@@ -352,6 +474,7 @@ public class MainActivity extends Activity {
                 portalNum++;
             }
             portalCount.setText("x"+portalNum);
+            portalCount.startAnimation(scaleAnimation);
             cookiesPerSecond += 44000;
         }
         if(v.equals(timeMachineBTN)){
@@ -363,16 +486,34 @@ public class MainActivity extends Activity {
                 timeMachineNum++;
             }
             timeMachineCount.setText("x"+timeMachineNum);
+            timeMachineCount.startAnimation(scaleAnimation);
             cookiesPerSecond += 260000;
+        }
+        if(v.equals(boost0)){
+            ScaleAnimation goneAnimation = new ScaleAnimation(1.1f,0f,1.1f,0f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            goneAnimation.setDuration(100);
+            boost0.startAnimation(goneAnimation);
+            boost0.setImageResource(R.drawable.checkmark);
+            boost0.setEnabled(false);
+            clickBoost = true;
+        }
+        if(v.equals(boost1)){
+            ScaleAnimation goneAnimation = new ScaleAnimation(1.1f,0f,1.1f,0f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            goneAnimation.setDuration(100);
+            boost1.startAnimation(goneAnimation);
+            boost1.setImageResource(R.drawable.checkmark);
+            boost1.setEnabled(false);
+            cookieBoost = true;
+        }
+        if(v.equals(boost2)){
+            ScaleAnimation goneAnimation = new ScaleAnimation(1.1f,0f,1.1f,0f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            goneAnimation.setDuration(100);
+            boost2.startAnimation(goneAnimation);
+            boost2.setImageResource(R.drawable.checkmark);
+            boost2.setEnabled(false);
+            potionBoost = true;
         }
         DecimalFormat df = new DecimalFormat("#.0");
         cpsDisp.setText("per second: " + df.format(cookiesPerSecond));
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putDouble("savedCookies",cookieCount);
-        outState.putDouble("savedCPS",cookiesPerSecond);
-        super.onSaveInstanceState(outState);
     }
 }
